@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Porter Dashboard - Porter Booking</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="../../css/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+</head>
+<body class="bg-light">
+    <nav class="navbar navbar-expand-lg navbar-dark" style="background-color: #2A6A9E;">
+        <div class="container">
+            <a class="navbar-brand" href="#">Porter Booking</a>
+            <ul class="navbar-nav ms-auto">
+                <li class="nav-item"><a class="nav-link active" href="#">Dashboard</a></li>
+                <li class="nav-item"><a class="nav-link" href="history.html">History</a></li>
+                <li class="nav-item"><a class="nav-link" href="../../index.html">Logout</a></li>
+            </ul>
+        </div>
+    </nav>
+    <div class="container py-5">
+        <h2 class="fw-bold mb-4" style="color: #2A6A9E;">Welcome, <span class="user-name"></span></h2>
+        <div class="row g-4">
+            <div class="col-md-6">
+                <div class="card shadow-lg border-0 p-4">
+                    <h4>Upcoming Booking</h4>
+                    <div id="bookingDetails"></div>
+                    <input type="text" class="form-control mb-3" id="otpInput" placeholder="Enter OTP">
+                    <button class="btn btn-accent me-2" id="acceptBooking">Accept Booking</button>
+                    <button class="btn btn-danger me-2" id="rejectBooking">Reject Booking</button>
+                    <button class="btn btn-secondary mt-2" id="completeBooking">Complete Service</button>
+                    <div class="alert alert-info mt-3" id="chargesDisplay" style="display: none;">
+                        Total Charges: ₹<span id="totalCharges"></span>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="card shadow-lg border-0 p-4">
+                    <h4>Your Stats</h4>
+                    <p>Total Bookings: <span id="totalBookings"></span></p>
+                    <p>Average Rating: <span id="avgRating">N/A</span>/5</p>
+                    <p>Earnings: ₹<span id="earnings"></span></p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <footer class="bg-dark text-white text-center py-3">
+        <p>© 2025 Porter Booking Service. All rights reserved.</p>
+    </footer>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="../../js/script.js"></script>
+    <script src="../../js/porterLogic.js"></script>
+    <script>
+        const currentUser = JSON.parse(localStorage.getItem('currentUser'));
+        const porter = porterLogic.porters.find(p => p.name === currentUser.name);
+
+        if (!porter) {
+            alert('Porter not found. Please ensure correct login credentials.');
+            window.location.href = '../../login.html';
+            return;
+        }
+
+        function updateBookingDetails() {
+            const booking = porter.currentBooking;
+            const otpInput = document.getElementById('otpInput');
+            const acceptButton = document.getElementById('acceptBooking');
+            const rejectButton = document.getElementById('rejectBooking');
+            const completeButton = document.getElementById('completeBooking');
+
+            console.log('Current Booking:', booking); // Debug log
+
+            if (!booking) {
+                document.getElementById('bookingDetails').innerHTML = '<p>No upcoming bookings.</p>';
+                otpInput.disabled = true;
+                otpInput.value = '';
+                acceptButton.disabled = true;
+                rejectButton.disabled = true;
+                completeButton.disabled = true;
+                return;
+            }
+
+            document.getElementById('bookingDetails').innerHTML = `
+                <p><strong>Passenger:</strong> ${booking.customerEmail}</p>
+                <p><strong>Phone:</strong> ${currentUser.phone}</p>
+                <p><strong>Station:</strong> ${booking.station}</p>
+                <p><strong>Platform:</strong> ${booking.platform}</p>
+                <p><strong>Time:</strong> ${booking.dateTime}</p>
+                <p><strong>Weight:</strong> ${booking.weight} kg</p>
+                <p><strong>Trolley:</strong> ${booking.trolley ? 'Yes' : 'No'}</p>
+                <p><strong>Status:</strong> ${booking.status}</p>
+                <p><strong>OTP (for reference):</strong> ${booking.otp}</p>
+            `;
+
+            otpInput.disabled = false;
+            acceptButton.disabled = booking.status !== 'Assigned';
+            rejectButton.disabled = booking.status !== 'Assigned';
+            completeButton.disabled = booking.status !== 'Accepted';
+        }
+
+        function updateStats() {
+            const completed = porterLogic.bookings.filter(b => b.porterId === porter.id && b.status === 'Completed');
+            document.getElementById('totalBookings').textContent = completed.length;
+            document.getElementById('earnings').textContent = completed.reduce((sum, b) => sum + (b.weight * 50 + (b.trolley ? 50 : 0)), 0);
+        }
+
+        updateBookingDetails();
+        updateStats();
+        setInterval(() => {
+            updateBookingDetails();
+            updateStats();
+        }, 2000);
+
+        // Event listeners with debug logs
+        document.getElementById('acceptBooking').addEventListener('click', () => {
+            const otp = document.getElementById('otpInput').value.trim();
+            console.log('Accept clicked, OTP entered:', otp);
+            if (!otp) {
+                alert('Please enter the OTP.');
+                return;
+            }
+            console.log('Calling acceptBooking with:', porter.id, porter.currentBooking.id, otp);
+            const result = porterLogic.acceptBooking(porter.id, porter.currentBooking.id, otp);
+            console.log('Accept result:', result);
+            if (result.success) {
+                alert('Booking accepted successfully!');
+            } else {
+                alert(result.message);
+            }
+            updateBookingDetails();
+        });
+
+        document.getElementById('rejectBooking').addEventListener('click', () => {
+            console.log('Reject clicked');
+            console.log('Calling rejectBooking with:', porter.id, porter.currentBooking.id);
+            const result = porterLogic.rejectBooking(porter.id, porter.currentBooking.id);
+            console.log('Reject result:', result);
+            if (result.success) {
+                alert('Booking rejected and reassigned!');
+            } else {
+                alert(result.message);
+            }
+            updateBookingDetails();
+        });
+
+        document.getElementById('completeBooking').addEventListener('click', () => {
+            console.log('Complete clicked');
+            console.log('Calling completeBooking with:', porter.id, porter.currentBooking.id);
+            const result = porterLogic.completeBooking(porter.id, porter.currentBooking.id);
+            console.log('Complete result:', result);
+            if (result.success) {
+                document.getElementById('totalCharges').textContent = result.charges;
+                document.getElementById('chargesDisplay').style.display = 'block';
+                alert(`Service completed! Collect ₹${result.charges} from the customer.`);
+                updateStats();
+            } else {
+                alert(result.message);
+            }
+            updateBookingDetails();
+        });
+    </script>
+</body>
+</html>
