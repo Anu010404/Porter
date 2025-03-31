@@ -1,9 +1,5 @@
 document.addEventListener('DOMContentLoaded', () => {
-    const currentUser = JSON.parse(localStorage.getItem('currentUser'));
-    if (!currentUser && !window.location.pathname.includes('login.html') && !window.location.pathname.includes('register.html') && !window.location.pathname.includes('index.html')) {
-        window.location.href = '../login.html';
-    }
-
+    
     const userNameElements = document.querySelectorAll('.user-name');
     if (currentUser && userNameElements) {
         userNameElements.forEach(el => el.textContent = currentUser.name);
