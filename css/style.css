@@ -1,0 +1,63 @@
+/* Modern Styling */
+body {
+    background-color: #F5F7FA;
+    font-family: 'Poppins', sans-serif;
+    color: #333333;
+}
+
+.navbar {
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+}
+
+.navbar-dark .navbar-nav .nav-link {
+    color: white;
+    transition: color 0.3s;
+}
+
+.navbar-dark .navbar-nav .nav-link:hover {
+    color: #F4A261;
+}
+
+.hero-section {
+    min-height: 80vh;
+    display: flex;
+    align-items: center;
+}
+
+.card {
+    border-radius: 15px;
+    transition: transform 0.3s;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+}
+
+.btn-accent {
+    background-color: #E76F51;
+    border-color: #E76F51;
+    color: white;
+    padding: 12px 24px;
+    border-radius: 8px;
+    transition: background-color 0.3s;
+}
+
+.btn-accent:hover {
+    background-color: #d65a3e;
+    border-color: #d65a3e;
+    color: white;
+}
+
+.form-control {
+    border-radius: 8px;
+    padding: 10px;
+}
+
+.form-control:focus {
+    border-color: #2A6A9E;
+    box-shadow: 0 0 0 0.2rem rgba(42, 106, 158, 0.25);
+}
+
+footer {
+    background-color: #2A6A9E;
+}
