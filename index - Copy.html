@@ -1,0 +1,1169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    
+    <!-- Bootstrap Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css">
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Custom CSS -->
+    <style>
+        :root {
+            --primary-color: #013F7C;
+            --secondary-color: #FFA500;
+            --light-color: #F8F9FA;
+            --dark-color: #212529;
+        }
+        
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #f5f5f5;
+        }
+        
+        .navbar {
+            background-color: var(--primary-color) !important;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+        
+        .navbar-brand {
+            font-weight: 700;
+            color: white !important;
+        }
+        
+        .nav-link {
+            color: rgba(255, 255, 255, 0.8) !important;
+            font-weight: 500;
+            margin: 0 5px;
+        }
+        
+        .nav-link:hover, .nav-link.active {
+            color: white !important;
+        }
+        
+        .btn-primary {
+            background-color: var(--primary-color);
+            border-color: var(--primary-color);
+        }
+        
+        .btn-outline-primary {
+            color: var(--primary-color);
+            border-color: var(--primary-color);
+        }
+        
+        .btn-outline-primary:hover {
+            background-color: var(--primary-color);
+            border-color: var(--primary-color);
+        }
+        
+        .hero-section {
+            background: linear-gradient(rgba(1, 63, 124, 0.8), rgba(1, 63, 124, 0.9)), url('https://images.unsplash.com/photo-1566438480900-0609be27a4be?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80');
+            background-size: cover;
+            background-position: center;
+            color: white;
+            padding: 100px 0;
+            text-align: center;
+        }
+        
+        .card {
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            border: none;
+            margin-bottom: 20px;
+            transition: transform 0.3s ease;
+        }
+        
+        .card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .card-header {
+            background-color: var(--primary-color);
+            color: white;
+            border-radius: 10px 10px 0 0 !important;
+        }
+        
+        .service-icon {
+            font-size: 2.5rem;
+            color: var(--secondary-color);
+            margin-bottom: 15px;
+        }
+        
+        footer {
+            background-color: var(--dark-color);
+            color: white;
+            padding: 30px 0;
+        }
+        
+        .footer-links a {
+            color: rgba(255, 255, 255, 0.7);
+            text-decoration: none;
+            margin: 0 10px;
+        }
+        
+        .footer-links a:hover {
+            color: white;
+        }
+        
+        .login-card {
+            max-width: 500px;
+            margin: 50px auto;
+            border-radius: 10px;
+        }
+        
+        .form-control:focus {
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 0.25rem rgba(1, 63, 124, 0.25);
+        }
+        
+        .profile-img {
+            width: 150px;
+            height: 150px;
+            object-fit: cover;
+            border-radius: 50%;
+            border: 5px solid white;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        .dashboard-card {
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .dashboard-card:hover {
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+        }
+        
+        .rating-stars {
+            color: var(--secondary-color);
+            font-size: 1.2rem;
+        }
+        
+        .badge-bg {
+            background-color: var(--primary-color);
+        }
+        
+        .progress {
+            height: 10px;
+        }
+        
+        .progress-bar {
+            background-color: var(--primary-color);
+        }
+        
+        /* Custom tab styling */
+        .nav-tabs .nav-link {
+            color: var(--dark-color);
+            border: none;
+            padding: 10px 20px;
+            font-weight: 500;
+        }
+        
+        .nav-tabs .nav-link.active {
+            color: var(--primary-color);
+            border-bottom: 3px solid var(--primary-color);
+            background-color: transparent;
+        }
+        
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+            .hero-section {
+                padding: 60px 0;
+            }
+            
+            .display-4 {
+                font-size: 2.5rem;
+            }
+        }
+    </style>
+    
+    <title>RailPorter - Railway Porter Service Booking</title>
+</head>
+<body>
+    <!-- Navigation Bar -->
+    <nav class="navbar navbar-expand-lg navbar-dark sticky-top">
+        <div class="container">
+            <a class="navbar-brand" href="#">
+                <i class="bi bi-train-front me-2"></i>RailPorter
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link active" href="#home">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#services">Services</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#how-it-works">How It Works</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#about">About</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#contact">Contact</a>
+                    </li>
+                    <!-- Login/Register Dropdown -->
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown">
+                            <i class="bi bi-person-circle"></i> Account
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-end">
+                            <li><a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#loginModal">Login</a></li>
+                            <li><a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#registerModal">Register</a></li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li><a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#porterLoginModal">Porter Login</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero-section" id="home">
+        <div class="container">
+            <h1 class="display-4 fw-bold mb-4">Need Help With Your Luggage?</h1>
+            <p class="lead mb-5">Book licensed railway porters (coolies) in advance and travel hassle-free</p>
+            <div class="d-flex justify-content-center gap-3">
+                <button class="btn btn-light btn-lg px-4" data-bs-toggle="modal" data-bs-target="#registerModal">
+                    <i class="bi bi-person-plus me-2"></i>Register Now
+                </button>
+                <button class="btn btn-outline-light btn-lg px-4" data-bs-toggle="modal" data-bs-target="#loginModal">
+                    <i class="bi bi-box-arrow-in-right me-2"></i>Login
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Services Section -->
+    <section class="py-5 bg-white" id="services">
+        <div class="container">
+            <div class="text-center mb-5">
+                <h2 class="fw-bold">Our Services</h2>
+                <p class="text-muted">We provide reliable and licensed porter services at railway stations</p>
+            </div>
+            <div class="row g-4">
+                <div class="col-md-4">
+                    <div class="card h-100">
+                        <div class="card-body text-center p-4">
+                            <div class="service-icon">
+                                <i class="bi bi-bag-check"></i>
+                            </div>
+                            <h4 class="card-title">Baggage Handling</h4>
+                            <p class="card-text">Professionals handle your luggage carefully with Rs.50/- per kg rate. No extra charges for handling.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card h-100">
+                        <div class="card-body text-center p-4">
+                            <div class="service-icon">
+                                <i class="bi bi-cart3"></i>
+                            </div>
+                            <h4 class="card-title">Trolley Service</h4>
+                            <p class="card-text">Get trolley service for heavy luggage with additional Rs.50/- charge per trolley.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card h-100">
+                        <div class="card-body text-center p-4">
+                            <div class="service-icon">
+                                <i class="bi bi-clock-history"></i>
+                            </div>
+                            <h4 class="card-title">Pre-Booking</h4>
+                            <p class="card-text">Book your porter in advance and avoid last-minute hassles at the station.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- How It Works Section -->
+    <section class="py-5 bg-light" id="how-it-works">
+        <div class="container">
+            <div class="text-center mb-5">
+                <h2 class="fw-bold">How It Works</h2>
+                <p class="text-muted">Follow these simple steps to book your porter service</p>
+            </div>
+            <div class="row g-4">
+                <div class="col-md-3">
+                    <div class="card h-100">
+                        <div class="card-body text-center p-4">
+                            <div class="service-icon">
+                                <span class="badge bg-primary rounded-circle p-3 mb-3">1</span>
+                            </div>
+                            <h4 class="card-title">Create Account</h4>
+                            <p class="card-text">Register on our platform with your basic details.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="card h-100">
+                        <div class="card-body text-center p-4">
+                            <div class="service-icon">
+                                <span class="badge bg-primary rounded-circle p-3 mb-3">2</span>
+                            </div>
+                            <h4 class="card-title">Book Service</h4>
+                            <p class="card-text">Select your station, time and luggage details.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="card h-100">
+                        <div class="card-body text-center p-4">
+                            <div class="service-icon">
+                                <span class="badge bg-primary rounded-circle p-3 mb-3">3</span>
+                            </div>
+                            <h4 class="card-title">Receive OTP</h4>
+                            <p class="card-text">Get OTP on your registered mobile number.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="card h-100">
+                        <div class="card-body text-center p-4">
+                            <div class="service-icon">
+                                <span class="badge bg-primary rounded-circle p-3 mb-3">4</span>
+                            </div>
+                            <h4 class="card-title">Meet Porter</h4>
+                            <p class="card-text">Share OTP with porter at meeting point to start service.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Booking Section (Visible only after login) -->
+    <section class="py-5 bg-white" id="booking" style="display: none;">
+        <div class="container">
+            <div class="text-center mb-5">
+                <h2 class="fw-bold">Book Porter Service</h2>
+                <p class="text-muted">Fill your journey details to book a porter</p>
+            </div>
+            <div class="row justify-content-center">
+                <div class="col-lg-8">
+                    <div class="card">
+                        <div class="card-header">
+                            <h4 class="mb-0 text-white"><i class="bi bi-calendar-check me-2"></i>New Booking</h4>
+                        </div>
+                        <div class="card-body">
+                            <form id="bookingForm">
+                                <div class="row g-3">
+                                    <div class="col-md-6">
+                                        <label for="station" class="form-label">Station</label>
+                                        <select class="form-select" id="station" required>
+                                            <option value="" selected disabled>Select Station</option>
+                                            <option value="DEL">Delhi (NDLS)</option>
+                                            <option value="MUM">Mumbai (CSTM)</option>
+                                            <option value="CHE">Chennai (MAS)</option>
+                                            <option value="KOL">Kolkata (KOAA)</option>
+                                            <option value="BAN">Bangalore (SBC)</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label for="trainNumber" class="form-label">Train Number (Optional)</label>
+                                        <input type="text" class="form-control" id="trainNumber" placeholder="Ex: 12345">
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label for="arrivalDate" class="form-label">Arrival Date</label>
+                                        <input type="date" class="form-control" id="arrivalDate" required>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label for="arrivalTime" class="form-label">Approx Arrival Time</label>
+                                        <input type="time" class="form-control" id="arrivalTime" required>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label for="meetingPoint" class="form-label">Meeting Point</label>
+                                        <select class="form-select" id="meetingPoint" required>
+                                            <option value="" selected disabled>Select Meeting Point</option>
+                                            <option value="platform">Platform</option>
+                                            <option value="gate1">Station Gate 1</option>
+                                            <option value="gate2">Station Gate 2</option>
+                                            <option value="parking">Parking Area</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label for="bags" class="form-label">Number of Bags</label>
+                                        <input type="number" class="form-control" id="bags" min="1" required>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label for="weight" class="form-label">Total Weight (kg)</label>
+                                        <input type="number" class="form-control" id="weight" min="1" required>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label for="trolley" class="form-label">Need Trolley?</label>
+                                        <select class="form-select" id="trolley">
+                                            <option value="no" selected>No</option>
+                                            <option value="yes">Yes (+Rs.50)</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-12 mt-3">
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" id="terms" required>
+                                            <label class="form-check-label" for="terms">
+                                                I agree to the terms and conditions
+                                            </label>
+                                        </div>
+                                    </div>
+                                    <div class="col-12 mt-3">
+                                        <button type="submit" class="btn btn-primary btn-lg w-100">
+                                            <i class="bi bi-check-circle me-2"></i>Confirm Booking
+                                        </button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Booking Confirmation Modal -->
+    <div class="modal fade" id="bookingConfirmationModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header bg-success text-white">
+                    <h5 class="modal-title"><i class="bi bi-check-circle me-2"></i>Booking Confirmed</h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body text-center">
+                    <div class="mb-4">
+                        <i class="bi bi-check-circle-fill text-success" style="font-size: 3rem;"></i>
+                    </div>
+                    <h4>Your Porter Service is Booked!</h4>
+                    <p class="mb-3">Your booking reference is: <strong>RP789456</strong></p>
+                    <div class="alert alert-info">
+                        <p class="mb-1"><strong>OTP: 2468</strong></p>
+                        <p class="small mb-0">Share this OTP with the porter to start service</p>
+                    </div>
+                    <hr>
+                    <div class="text-start">
+                        <h5>Booking Details:</h5>
+                        <ul class="list-unstyled">
+                            <li><strong>Station:</strong> Delhi (NDLS)</li>
+                            <li><strong>Date:</strong> 15 June, 2023</li>
+                            <li><strong>Time:</strong> 14:30</li>
+                            <li><strong>Meeting Point:</strong> Platform</li>
+                            <li><strong>Estimated Charges:</strong> Rs.250 (5kg @ Rs.50/kg)</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary">
+                        <i class="bi bi-whatsapp me-2"></i>Share via WhatsApp
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Customer Dashboard Section (Visible after login) -->
+    <section class="py-5 bg-light" id="customerDashboard" style="display: none;">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-4">
+                    <!-- Profile Card -->
+                    <div class="card mb-4">
+                        <div class="card-body text-center">
+                            <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="Profile" class="profile-img mb-3">
+                            <h3 class="mb-1">Rahul Sharma</h3>
+                            <p class="text-muted mb-3">rahul.sharma@example.com</p>
+                            <div class="d-flex justify-content-center mb-3">
+                                <button class="btn btn-outline-primary me-2"><i class="bi bi-pencil"></i> Edit</button>
+                                <button class="btn btn-outline-danger"><i class="bi bi-box-arrow-right"></i> Logout</button>
+                            </div>
+                            <hr>
+                            <div class="row text-start">
+                                <div class="col-sm-6">
+                                    <p class="mb-1"><strong>Phone:</strong></p>
+                                    <p class="text-muted">+91 98765 43210</p>
+                                </div>
+                                <div class="col-sm-6">
+                                    <p class="mb-1"><strong>Member Since:</strong></p>
+                                    <p class="text-muted">Jan 2022</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Quick Actions -->
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title"><i class="bi bi-lightning-charge text-warning me-2"></i>Quick Actions</h5>
+                            <div class="list-group">
+                                <a href="#" class="list-group-item list-group-item-action">
+                                    <i class="bi bi-plus-circle me-2"></i>New Booking
+                                </a>
+                                <a href="#" class="list-group-item list-group-item-action">
+                                    <i class="bi bi-wallet2 me-2"></i>Payment History
+                                </a>
+                                <a href="#" class="list-group-item list-group-item-action">
+                                    <i class="bi bi-question-circle me-2"></i>Help & Support
+                                </a>
+                                <a href="#" class="list-group-item list-group-item-action">
+                                    <i class="bi bi-gear me-2"></i>Settings
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-8">
+                    <!-- Dashboard Content -->
+                    <div class="card mb-4">
+                        <div class="card-body">
+                            <ul class="nav nav-tabs" id="dashboardTabs" role="tablist">
+                                <li class="nav-item" role="presentation">
+                                    <button class="nav-link active" id="bookings-tab" data-bs-toggle="tab" data-bs-target="#bookings" type="button" role="tab">My Bookings</button>
+                                </li>
+                                <li class="nav-item" role="presentation">
+                                    <button class="nav-link" id="payment-tab" data-bs-toggle="tab" data-bs-target="#payment" type="button" role="tab">Payment History</button>
+                                </li>
+                                <li class="nav-item" role="presentation">
+                                    <button class="nav-link" id="profile-tab" data-bs-toggle="tab" data-bs-target="#profile" type="button" role="tab">Profile</button>
+                                </li>
+                            </ul>
+                            <div class="tab-content p-3" id="dashboardTabsContent">
+                                <!-- Bookings Tab -->
+                                <div class="tab-pane fade show active" id="bookings" role="tabpanel">
+                                    <h5 class="mb-4"><i class="bi bi-clock-history me-2 text-primary"></i>Recent Bookings</h5>
+                                    
+                                    <!-- Active Booking -->
+                                    <div class="card mb-3 border-primary">
+                                        <div class="card-header bg-primary bg-opacity-10">
+                                            <div class="d-flex justify-content-between align-items-center">
+                                                <span class="badge bg-primary">Active</span>
+                                                <small class="text-muted">Booking ID: RP123789</small>
+                                            </div>
+                                        </div>
+                                        <div class="card-body">
+                                            <div class="row mb-3">
+                                                <div class="col-md-6">
+                                                    <p class="mb-1"><strong>Station:</strong> Mumbai (CSTM)</p>
+                                                    <p class="mb-1"><strong>Date:</strong> 10 June, 2023</p>
+                                                    <p class="mb-0"><strong>Meeting Point:</strong> Platform 3</p>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <p class="mb-1"><strong>Porter:</strong> Rajesh Kumar (Badge: M7854)</p>
+                                                    <p class="mb-1"><strong>Rating:</strong> <span class="rating-stars">★★★★☆</span></p>
+                                                    <div class="d-flex align-items-center">
+                                                        <strong>OTP:</strong> 
+                                                        <div class="ms-2 badge bg-dark">2468</div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="alert alert-warning">
+                                                <p class="mb-1"><i class="bi bi-info-circle me-2"></i><strong>Instructions:</strong></p>
+                                                <p class="small mb-0">Meet the porter at the designated location and share the OTP. Service will start after OTP verification.</p>
+                                            </div>
+                                            <div class="d-flex justify-content-end gap-2">
+                                                <button class="btn btn-sm btn-outline-primary">
+                                                    <i class="bi bi-telephone me-1"></i>Call Porter
+                                                </button>
+                                                <button class="btn btn-sm btn-success" data-bs-toggle="modal" data-bs-target="#ratingModal">
+                                                    <i class="bi bi-star me-1"></i>Rate Service
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
+                                    <!-- Past Bookings -->
+                                    <h6 class="mt-4 mb-3"><i class="bi bi-list-check me-2"></i>Past Bookings</h6>
+                                    
+                                    <div class="table-responsive">
+                                        <table class="table table-hover">
+                                            <thead>
+                                                <tr>
+                                                    <th>Date</th>
+                                                    <th>Station</th>
+                                                    <th>Porter</th>
+                                                    <th>Amount</th>
+                                                    <th>Rating</th>
+                                                    <th>Action</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr>
+                                                    <td>02 Jun 2023</td>
+                                                    <td>Delhi (NDLS)</td>
+                                                    <td>Amit Singh</td>
+                                                    <td>Rs.350</td>
+                                                    <td><span class="rating-stars">★★★★★</span></td>
+                                                    <td>
+                                                        <button class="btn btn-sm btn-outline-primary">
+                                                            <i class="bi bi-eye"></i>
+                                                        </button>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td>25 May 2023</td>
+                                                    <td>Bangalore (SBC)</td>
+                                                    <td>Suresh Patel</td>
+                                                    <td>Rs.250</td>
+                                                    <td><span class="rating-stars">★★★☆☆</span></td>
+                                                    <td>
+                                                        <button class="btn btn-sm btn-outline-primary">
+                                                            <i class="bi bi-eye"></i>
+                                                        </button>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td>18 May 2023</td>
+                                                    <td>Chennai (MAS)</td>
+                                                    <td>Ravi Verma</td>
+                                                    <td>Rs.450</td>
+                                                    <td><span class="rating-stars">★★★★☆</span></td>
+                                                    <td>
+                                                        <button class="btn btn-sm btn-outline-primary">
+                                                            <i class="bi bi-eye"></i>
+                                                        </button>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                                
+                                <!-- Payment History Tab -->
+                                <div class="tab-pane fade" id="payment" role="tabpanel">
+                                    <h5 class="mb-4"><i class="bi bi-credit-card me-2 text-primary"></i>Payment History</h5>
+                                    
+                                    <div class="table-responsive">
+                                        <table class="table">
+                                            <thead>
+                                                <tr>
+                                                    <th>Date</th>
+                                                    <th>Booking ID</th>
+                                                    <th>Amount</th>
+                                                    <th>Method</th>
+                                                    <th>Status</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr>
+                                                    <td>10 Jun 2023</td>
+                                                    <td>RP123789</td>
+                                                    <td>Rs.250</td>
+                                                    <td>UPI</td>
+                                                    <td><span class="badge bg-success">Completed</span></td>
+                                                </tr>
+                                                <tr>
+                                                    <td>02 Jun 2023</td>
+                                                    <td>RP987654</td>
+                                                    <td>Rs.350</td>
+                                                    <td>Credit Card</td>
+                                                    <td><span class="badge bg-success">Completed</span></td>
+                                                </tr>
+                                                <tr>
+                                                    <td>25 May 2023</td>
+                                                    <td>RP456123</td>
+                                                    <td>Rs.250</td>
+                                                    <td>Net Banking</td>
+                                                    <td><span class="badge bg-success">Completed</span></td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                    
+                                    <div class="card mt-4">
+                                        <div class="card-header">
+                                            <h6 class="mb-0"><i class="bi bi-pie-chart me-2"></i>Payment Methods</h6>
+                                        </div>
+                                        <div class="card-body">
+                                            <div class="d-flex flex-wrap gap-3">
+                                                <div class="card px-3 py-2 border">
+                                                    <div class="d-flex align-items-center">
+                                                        <i class="bi bi-credit-card text-primary me-2"></i>
+                                                        <div>
+                                                            <p class="mb-0 small">Visa •••• 5678</p>
+                                                            <p class="mb-0 small text-muted">Expires 03/25</p>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="card px-3 py-2 border">
+                                                    <div class="d-flex align-items-center">
+                                                        <i class="bi bi-phone text-primary me-2"></i>
+                                                        <div>
+                                                            <p class="mb-0 small">UPI - rahul@upi</p>
+                                                            <p class="mb-0 small text-muted">Primary</p>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <button class="btn btn-outline-primary btn-sm align-self-center">
+                                                    <i class="bi bi-plus me-1"></i>Add New
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <!-- Profile Tab -->
+                                <div class="tab-pane fade" id="profile" role="tabpanel">
+                                    <h5 class="mb-4"><i class="bi bi-person me-2 text-primary"></i>Profile Information</h5>
+                                    
+                                    <form>
+                                        <div class="row g-3">
+                                            <div class="col-md-6">
+                                                <label class="form-label">Full Name</label>
+                                                <input type="text" class="form-control" value="Rahul Sharma">
+                                            </div>
+                                            <div class="col-md-6">
+                                                <label class="form-label">Email</label>
+                                                <input type="email" class="form-control" value="rahul.sharma@example.com" disabled>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <label class="form-label">Phone Number</label>
+                                                <input type="tel" class="form-control" value="+91 98765 43210">
+                                            </div>
+                                            <div class="col-md-6">
+                                                <label class="form-label">Date of Birth</label>
+                                                <input type="date" class="form-control" value="1990-05-15">
+                                            </div>
+                                            <div class="col-12">
+                                                <hr class="my-4">
+                                                <h6 class="mb-3"><i class="bi bi-shield-lock me-2"></i>Change Password</h6>
+                                                <div class="mb-3">
+                                                    <label class="form-label">Current Password</label>
+                                                    <input type="password" class="form-control">
+                                                </div>
+                                                <div class="mb-3">
+                                                    <label class="form-label">New Password</label>
+                                                    <input type="password" class="form-control">
+                                                </div>
+                                                <div class="mb-3">
+                                                    <label class="form-label">Confirm New Password</label>
+                                                    <input type="password" class="form-control">
+                                                </div>
+                                            </div>
+                                            <div class="col-12">
+                                                <button type="submit" class="btn btn-primary px-4">
+                                                    <i class="bi bi-save me-2"></i>Save Changes
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Porter Dashboard Section (Visible after porter login) -->
+    <section class="py-5 bg-light" id="porterDashboard" style="display: none;">
+        <div class="container">
+            <h2 class="mb-4"><i class="bi bi-person-check me-2"></i>Porter Dashboard</h2>
+            
+            <div class="row">
+                <div class="col-lg-4">
+                    <!-- Porter Profile Card -->
+                    <div class="card mb-4">
+                        <div class="card-body text-center">
+                            <img src="https://randomuser.me/api/portraits/men/45.jpg" alt="Profile" class="profile-img mb-3">
+                            <h3 class="mb-1">Rajesh Kumar</h3>
+                            <p class="text-muted mb-3">Porter ID: PRT7854</p>
+                            <div class="d-flex justify-content-center mb-3">
+                                <button class="btn btn-outline-primary me-2">
+                                    <i class="bi bi-qr-code me-1"></i>Show QR
+                                </button>
+                                <button class="btn btn-outline-danger">
+                                    <i class="bi bi-box-arrow-right"></i> Logout
+                                </button>
+                            </div>
+                            <hr>
+                            <div class="row text-start">
+                                <div class="col-sm-6">
+                                    <p class="mb-1"><strong>Station:</strong></p>
+                                    <p class="text-muted">Mumbai (CSTM)</p>
+                                </div>
+                                <div class="col-sm-6">
+                                    <p class="mb-1"><strong>Rating:</strong></p>
+                                    <p class="text-muted"><span class="rating-stars">★★★★☆</span> (4.2)</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Earnings Card -->
+                    <div class="card mb-4">
+                        <div class="card-body">
+                            <h5 class="card-title"><i class="bi bi-wallet2 text-success me-2"></i>Earnings</h5>
+                            <div class="d-flex align-items-center justify-content-between mb-3">
+                                <h4 class="mb-0">Rs.9,850</h4>
+                                <span class="text-success">+12%</span>
+                            </div>
+                            <p class="text-muted mb-1">Current Month (June)</p>
+                            
+                            <hr>
+                            
+                            <div class="row text-center">
+                                <div class="col-6">
+                                    <p class="mb-1"><strong>Today</strong></p>
+                                    <p class="text-muted">Rs.500</p>
+                                </div>
+                                <div class="col-6">
+                                    <p class="mb-1"><strong>Last Month</strong></p>
+                                    <p class="text-muted">Rs.8,750</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-lg-8">
+                    <!-- Porter Dashboard Content -->
+                    <div class="card mb-4">
+                        <div class="card-body">
+                            <ul class="nav nav-tabs" id="porterTabs" role="tablist">
+                                <li class="nav-item" role="presentation">
+                                    <button class="nav-link active" id="jobs-tab" data-bs-toggle="tab" data-bs-target="#jobs" type="button" role="tab">Current Jobs</button>
+                                </li>
+                                <li class="nav-item" role="presentation">
+                                    <button class="nav-link" id="history-tab" data-bs-toggle="tab" data-bs-target="#history" type="button" role="tab">Job History</button>
+                                </li>
+                                <li class="nav-item" role="presentation">
+                                    <button class="nav-link" id="reviews-tab" data-bs-toggle="tab" data-bs-target="#reviews" type="button" role="tab">Reviews</button>
+                                </li>
+                            </ul>
+                            
+                            <div class="tab-content p-3" id="porterTabsContent">
+                                <!-- Current Jobs Tab -->
+                                <div class="tab-pane fade show active" id="jobs" role="tabpanel">
+                                    <h5 class="mb-4"><i class="bi bi-list-task me-2 text-primary"></i>Active Bookings</h5>
+                                    
+                                    <!-- Current Job Card -->
+                                    <div class="card mb-3 border-success">
+                                        <div class="card-header bg-success bg-opacity-10">
+                                            <div class="d-flex justify-content-between align-items-center">
+                                                <span class="badge bg-success">Active</span>
+                                                <small class="text-muted">Booking ID: RP123789</small>
+                                            </div>
+                                        </div>
+                                        <div class="card-body">
+                                            <div class="row mb-3">
+                                                <div class="col-md-6">
+                                                    <p class="mb-1"><strong>Customer:</strong> Rahul Sharma</p>
+                                                    <p class="mb-1"><strong>Phone:</strong> +91 98765 43210</p>
+                                                    <p class="mb-0"><strong>Meeting Time:</strong> Today, 14:30</p>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <p class="mb-1"><strong>Bags:</strong> 3 (Total 5kg)</p>
+                                                    <p class="mb-1"><strong>Trolley:</strong> No</p>
+                                                    <p class="mb-0"><strong>Est. Earnings:</strong> Rs.250</p>
+                                                </div>
+                                            </div>
+                                            <div class="alert alert-warning">
+                                                <p class="mb-1"><i class="bi bi-info-circle me-2"></i><strong>Instructions:</strong></p>
+                                                <p class="small mb-0">Meet the customer at Platform 3. Ask for OTP to start service.</p>
+                                            </div>
+                                            <form class="mb-3">
+                                                <div class="input-group">
+                                                    <input type="text" class="form-control" placeholder="Enter OTP">
+                                                    <button class="btn btn-primary" type="button">
+                                                        <i class="bi bi-check-circle me-1"></i>Verify OTP
+                                                    </button>
+                                                </div>
+                                            </form>
+                                            <div class="d-flex justify-content-between">
+                                                <button class="btn btn-sm btn-outline-danger">
+                                                    <i class="bi bi-telephone me-1"></i>Call Customer
+                                                </button>
+                                                <div>
+                                                    <button class="btn btn-sm btn-outline-secondary me-2">
+                                                        <i class="bi bi-clock me-1"></i>Running Late
+                                                    </button>
+                                                    <button class="btn btn-sm btn-success">
+                                                        <i class="bi bi-check-circle me-1"></i>Job Complete
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <!-- Job History Tab -->
+                                <div class="tab-pane fade" id="history" role="tabpanel">
+                                    <h5 class="mb-4"><i class="bi bi-clock-history me-2 text-primary"></i>Past Jobs</h5>
+                                    
+                                    <div class="table-responsive">
+                                        <table class="table">
+                                            <thead>
+                                                <tr>
+                                                    <th>Date</th>
+                                                    <th>Customer</th>
+                                                    <th>Station</th>
+                                                    <th>Weight</th>
+                                                    <th>Earnings</th>
+                                                    <th>Rating</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr>
+                                                    <td>02 Jun 2023</td>
+                                                    <td>Rahul Sharma</td>
+                                                    <td>Mumbai (CSTM)</td>
+                                                    <td>7kg</td>
+                                                    <td>Rs.350</td>
+                                                    <td><span class="rating-stars">★★★★★</span></td>
+                                                </tr>
+                                                <tr>
+                                                    <td>28 May 2023</td>
+                                                    <td>Priya Patel</td>
+                                                    <td>Mumbai (CSTM)</td>
+                                                    <td>5kg</td>
+                                                    <td>Rs.300</td>
+                                                    <td><span class="rating-stars">★★★★☆</span></td>
+                                                </tr>
+                                                <tr>
+                                                    <td>25 May 2023</td>
+                                                    <td>Anil Desai</td>
+                                                    <td>Mumbai (CSTM)</td>
+                                                    <td>4kg</td>
+                                                    <td>Rs.200</td>
+                                                    <td><span class="rating-stars">★★★☆☆</span></td>
+                                                </tr>
+                                                <tr>
+                                                    <td>20 May 2023</td>
+                                                    <td>Sneha Reddy</td>
+                                                    <td>Mumbai (CSTM)</td>
+                                                    <td>6kg</td>
+                                                    <td>Rs.300</td>
+                                                    <td><span class="rating-stars">★★★★☆</span></td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                    
+                                    <nav aria-label="Page navigation">
+                                        <ul class="pagination justify-content-center">
+                                            <li class="page-item disabled">
+                                                <a class="page-link" href="#" tabindex="-1" aria-disabled="true">Previous</a>
+                                            </li>
+                                            <li class="page-item active"><a class="page-link" href="#">1</a></li>
+                                            <li class="page-item"><a class="page-link" href="#">2</a></li>
+                                            <li class="page-item"><a class="page-link" href="#">3</a></li>
+                                            <li class="page-item">
+                                                <a class="page-link" href="#">Next</a>
+                                            </li>
+                                        </ul>
+                                    </nav>
+                                </div>
+                                
+                                <!-- Reviews Tab -->
+                                <div class="tab-pane fade" id="reviews" role="tabpanel">
+                                    <h5 class="mb-4"><i class="bi bi-star me-2 text-primary"></i>Customer Reviews</h5>
+                                    
+                                    <div class="card mb-4">
+                                        <div class="card-body">
+                                            <div class="row align-items-center">
+                                                <div class="col-md-3 text-center">
+                                                    <div class="display-4">4.2</div>
+                                                    <div class="rating-stars mb-2">★★★★☆</div>
+                                                    <small class="text-muted">32 reviews</small>
+                                                </div>
+                                                <div class="col-md-9">
+                                                    <div class="mb-2">
+                                                        <span class="me-2">5★</span>
+                                                        <div class="progress" style="height: 10px;">
+                                                            <div class="progress-bar" role="progressbar" style="width: 65%;" aria-valuenow="65" aria-valuemin="0" aria-valuemax="100"></div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="mb-2">
+                                                        <span class="me-2">4★</span>
+                                                        <div class="progress" style="height: 10px;">
+                                                            <div class="progress-bar" role="progressbar" style="width: 20%;" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100"></div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="mb-2">
+                                                        <span class="me-2">3★</span>
+                                                        <div class="progress" style="height: 10px;">
+                                                            <div class="progress-bar" role="progressbar" style="width: 10%;" aria-valuenow="10" aria-valuemin="0" aria-valuemax="100"></div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="mb-2">
+                                                        <span class="me-2">2★</span>
+                                                        <div class="progress" style="height: 10px;">
+                                                            <div class="progress-bar" role="progressbar" style="width: 3%;" aria-valuenow="3" aria-valuemin="0" aria-valuemax="100"></div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="mb-2">
+                                                        <span class="me-2">1★</span>
+                                                        <div class="progress" style="height: 10px;">
+                                                            <div class="progress-bar" role="progressbar" style="width: 2%;" aria-valuenow="2" aria-valuemin="0" aria-valuemax="100"></div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="mb-4">
+                                        <h6><i class="bi bi-chat-square-quote me-2"></i>Recent Reviews</h6>
+                                    </div>
+                                    
+                                    <!-- Review Item -->
+                                    <div class="card mb-3">
+                                        <div class="card-body">
+                                            <div class="d-flex justify-content-between mb-2">
+                                                <div>
+                                                    <strong>Rahul Sharma</strong>
+                                                    <div class="rating-stars">★★★★★</div>
+                                                </div>
+                                                <small class="text-muted">2 Jun 2023</small>
+                                            </div>
+                                            <p class="mb-0">Rajesh was very professional and helpful. He arrived on time and handled my luggage with care. Highly recommended!</p>
+                                        </div>
+                                    </div>
+                                    
+                                    <!-- Review Item -->
+                                    <div class="card mb-3">
+                                        <div class="card-body">
+                                            <div class="d-flex justify-content-between mb-2">
+                                                <div>
+                                                    <strong>Priya Patel</strong>
+                                                    <div class="rating-stars">★★★★☆</div>
+                                                </div>
+                                                <small class="text-muted">28 May 2023</small>
+                                            </div>
+                                            <p class="mb-0">Good service overall. He was a bit late but made up for it by being very careful with my bags.</p>
+                                        </div>
+                                    </div>
+                                    
+                                    <!-- Review Item -->
+                                    <div class="card mb-3">
+                                        <div class="card-body">
+                                            <div class="d-flex justify-content-between mb-2">
+                                                <div>
+                                                    <strong>Anil Desai</strong>
+                                                    <div class="rating-stars">★★★☆☆</div>
+                                                </div>
+                                                <small class="text-muted">25 May 2023</small>
+                                            </div>
+                                            <p class="mb-0">Service was okay but the porter seemed inexperienced. Took longer than expected.</p>
+                                        </div>
+                                    </div>
+                                    
+                                    <nav aria-label="Page navigation">
+                                        <ul class="pagination justify-content-center">
+                                            <li class="page-item disabled">
+                                                <a class="page-link" href="#" tabindex="-1" aria-disabled="true">Previous</a>
+                                            </li>
+                                            <li class="page-item active"><a class="page-link" href="#">1</a></li>
+                                            <li class="page-item"><a class="page-link" href="#">2</a></li>
+                                            <li class="page-item"><a class="page-link" href="#">3</a></li>
+                                            <li class="page-item">
+                                                <a class="page-link" href="#">Next</a>
+                                            </li>
+                                        </ul>
+                                    </nav>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Admin Dashboard Section -->
+    <section class="py-5" id="adminDashboard" style="display: none;">
+        <div class="container">
+            <h2 class="mb-4"><i class="bi bi-speedometer2 me-2"></i>Admin Dashboard</h2>
+            
+            <div class="row mb-4">
+                <!-- Summary Cards -->
+                <div class="col-md-4 mb-3">
+                    <div class="card dashboard-card h-100">
+                        <div class="card-body">
+                            <div class="d-flex justify-content-between">
+                                <div>
+                                    <h6 class="text-muted">Total Bookings</h6>
+                                    <h3>1,245</h3>
+                                </div>
+                                <div class="bg-primary bg-opacity-10 p-3 rounded">
+                                    <i class="bi bi-calendar-check text-primary" style="font-size: 1.5rem;"></i>
+                                </div>
+                            </div>
+                            <div class="mt-3">
+                                <span class="text-success">+12.5%</span> <small class="text-muted">from last month</small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4 mb-3">
+                    <div class="card dashboard-card h-100">
+                        <div class="card-body">
+                            <div class="d-flex justify-content-between">
+                                <div>
+                                    <h6 class="text-muted">Active Porters</h6>
+                                    <h3>87</h3>
+                                </div>
+                                <div class="bg-success bg-opacity-10 p-3 rounded">
+                                    <i class="bi bi-people text-success" style="font-size: 1.5rem;"></i>
+                                </div>
+                            </div>
+                            <div class="mt-3">
+                                <span class="text-success">+5.2%</span> <small class="text-muted">from last month</small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4 mb-3">
+                    <div class="card dashboard-card h-100">
+                        <div class="card-body">
+                            <div class="d-flex justify-content-between">
+                                <div>
+                                    <h6 class="text-muted">Revenue</h6>
+                                    <h3>Rs.1.85L</h3>
+                                </div>
+                                <div class="bg-info bg-opacity-10 p-3 rounded">
+                                    <i class="bi bi-currency-rupee text-info" style="font-size: 1.5rem;"></i>
+                                </div>
+                            </div>
+                            <div class="mt-3">
+                                <span class="text-danger">-2.3%</span> <small class="text-muted">from last month</small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Admin Panel Content -->
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="card">
+                        <div class="card-body">
+                            <ul class="nav nav-tabs" id="adminTabs" role="tablist">
+                                <li class="nav-item" role="presentation">
+                                    <button class="nav-link active" id="porters-tab" data-bs-toggle="tab" data-bs-target="#porters" type="button" role="tab">Manage Porters</button>
+                                </li>
+                                <li class="nav-item" role="presentation">
+                                    <button class="nav-link" id="bookings-tab" data-bs-toggle="tab" data-bs-target="#bookings" type="button" role="tab">All Bookings</button>
+                                </li>
+                                <li class="nav-item" role="presentation">
+                                    <button class="nav-link" id="reports-tab" data-bs-toggle="tab" data-bs-target="#reports" type="button" role="tab">Reports</button>
+                                </li>
+                                <li class="nav-item" role="presentation">
+                                    <button class="nav-link" id="settings-tab" data-bs-toggle="tab" data-bs-target="#settings" type="button" role="tab">Settings</button>
+                                </li>
+                            </ul>
+                            
+                            <div class="tab-content p-3" id="
+</html>
